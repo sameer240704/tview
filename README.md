@@ -1,9 +1,12 @@
 <div align="center">
 
 <picture>
-  <img width="563" height="128" alt="tview LOGO" src="https://github.com/user-attachments/assets/1eee2c5c-a0c1-4c3b-a337-54b5f74dc708" />
+  <source media="(prefers-color-scheme: dark)" srcset="/asset/logo-dark.png" />
+  <source media="(prefers-color-scheme: light)" srcset="/asset/logo-light.png" />
+  <img alt="tview LOGO" src="/asset/logo-light.png" />
 </picture>
 
+<br>
 ![Go Version](https://img.shields.io/badge/Go-1.19+-00ADD8?logo=go)
 ![License MIT](https://img.shields.io/badge/License-MIT-green)
 
@@ -11,22 +14,21 @@
 
 A fast, simple, and elegant terminal tool to visualize your folder structure as a beautiful tree with file icons and colors.
 
-## ✨ Features
+## Features
 
-- 🎨 **Colorful output** with syntax highlighting for different file types
-- 🏷️ **File icons** for better visual recognition
-- 📊 **File size display** for quick size assessment
-- 🎯 **Customizable depth** for focused directory exploration
-- 🚫 **Ignore patterns** to exclude unwanted directories
-- 💻 **Cross-platform** support (Windows, macOS, Linux)
-- ⚡ **Fast and lightweight** written in Go
+- **Colorful output** with syntax highlighting for different file types
+- **File icons** for better visual recognition
+- **File size display** for quick size assessment
+- **Customizable depth** for focused directory exploration
+- **Ignore patterns** to exclude unwanted directories
+- **Cross-platform** support (Windows, macOS, Linux)
+- **Fast and lightweight** written in Go
 
-## 🖼️ Preview
+## Preview
 
 ![tview output example](https://github.com/user-attachments/assets/52b08699-b6cf-46f1-a0ff-6501dbb1a0b3)
-*Example output of tview showing directory structure with icons and colors*
 
-## 🚀 Installation
+## Installation
 
 ### Prerequisites
 - Go 1.19 or higher
@@ -39,7 +41,7 @@ cd tview
 go build -o tview main.go
 ```
 
-## 📖 Usage
+## Usage
 
 ### Basic Usage
 ```bash
@@ -91,6 +93,6 @@ The following table lists all available command line options for the tool:
 | `--version`   | `-v`  | Show version information                         | `false`  |
 | `--help`      | `-?`  | Show help message                                | `false`  |
 
-## 📝 LICENSE
+## LICENSE
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/sameer240704/tview?tab=MIT-1-ov-file) file for details.
 
