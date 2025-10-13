@@ -6,7 +6,6 @@
   <img alt="tview LOGO" src="/asset/logo-light.png" />
 </picture>
 
-<br>
 ![Go Version](https://img.shields.io/badge/Go-1.19+-00ADD8?logo=go)
 ![License MIT](https://img.shields.io/badge/License-MIT-green)
 
