@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 	"tview/icons"
+	"sort"
 )
 
 var (
@@ -16,6 +17,7 @@ var (
 	hideIcons bool
 	hideFileSize bool
 	showVersion bool
+	sortBy string
 	version string = "v0.1.0"
 	repoLink string = "https://github.com/sameer240704/tview"
 )
@@ -27,6 +29,7 @@ func init() {
 	flag.BoolVar(&hideIcons, "icons", false, "Hide folder and file icons")
 	flag.BoolVar(&hideFileSize, "size", false, "Display size of the corressponding file")
 	flag.BoolVar(&showVersion, "version", false, "Show tview version")
+	flag.StringVar(&sortBy, "sort", "", "Sort files in multiple orders")
 }
 
 func main() {
@@ -125,6 +128,8 @@ func printTree(path, prefix string, level int, ignoreList []string) {
         }
     }
 
+	filteredEntries = sortEntries(filteredEntries, path, sortBy)
+
     for i, entry := range filteredEntries {
         isLast := i == len(filteredEntries)-1
 
@@ -196,6 +201,49 @@ func formatSize(size int64) string {
     }
 }
 
+// Helper function for sorting the files and folders
+func sortEntries(entries []os.DirEntry, path string, sortBy string) []os.DirEntry {
+	if sortBy == "" {
+		return entries
+	}
+
+	parts := strings.Split(strings.ToLower(sortBy), ":")
+	field := parts[0]
+	order := "asc"
+
+	if len(parts) > 1 {
+		order = parts[1]
+	}
+
+	sort.SliceStable(entries, func(i, j int) bool {
+		a, b := entries[i], entries[j]
+
+		switch field {
+		case "size":
+			ai, _ := a.Info()
+			bi, _ := b.Info()
+			if ai == nil || bi == nil {
+				return a.Name() < b.Name()
+			}
+			if order == "desc" {
+				return ai.Size() > bi.Size()
+			}
+			return ai.Size() < bi.Size()
+
+		case "name":
+			if order == "desc" {
+				return strings.ToLower(a.Name()) > strings.ToLower(b.Name())
+			}
+			return strings.ToLower(a.Name()) < strings.ToLower(b.Name())
+
+		default:
+			return strings.ToLower(a.Name()) < strings.ToLower(b.Name())
+		}
+	})
+
+	return entries
+}
+
 func printHelp() {
 	fmt.Println(`
 tview - A fast, simple, and elegant terminal tool to visualize your folder structure as a tree.
@@ -213,5 +261,7 @@ DISPLAY OPTIONS
   --color           enable colored output in terminal (default: true)
   --icons           hide file and folder icons in the tree view
   --size            show file sizes next to each file
+  --sort string     sort files by 'name' or 'size' (optionally add :asc or :desc)
+                    e.g. --sort name:asc, --sort size:desc
 `)
 }
