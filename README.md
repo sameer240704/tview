@@ -76,6 +76,11 @@ tview --size
 
 # Show version information
 tview --version
+
+# Sort files by name and size
+tview --sort size:desc
+
+tview --sort name 
 ```
 
 ## Command Line Options
@@ -91,6 +96,8 @@ The following table lists all available command line options for the tool:
 | `--size`      |       | Display file sizes                               | `false`  |
 | `--version`   | `-v`  | Show version information                         | `false`  |
 | `--help`      | `-?`  | Show help message                                | `false`  |
+| `--sort`      |       | Sort files by 'name' or 'size'                   | `""`  |
+
 
 ## LICENSE
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/sameer240704/tview?tab=MIT-1-ov-file) file for details.
